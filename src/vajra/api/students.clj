@@ -4,8 +4,8 @@
 
 
 
-(defn handler [_]
-  {:status 200, :body (students/get-data)})
+(defn handler [p]
+  {:status 200, :body (students/get-data p)})
 
 (defn wrap [handler id]
   (fn [request]
