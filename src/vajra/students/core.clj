@@ -2,20 +2,15 @@
   (:require [vajra.students.query :as query]
    [vajra.xform.core :as xform]))
 
-
-(def sort-configuration 
-  {:default [{:name :asc} {:height :desc}]})
-
-
-(def group-configuration
-  {:default (xform/bd-aggregator [:height])
-   :strange [:class]})
-
-
-(defn get-data
- "gets raw data for a given query"
+(defn get-data 
+  "gets data from datastores for api needs."
   [param]
-  (->> query/get-all
-       xform/aggregate group-configuration
-       sort sort-configuration))
+  (query/get-all))
+
+
+(defn get-aggregated-data
+ "gets aggregated  data processing it for ux needs"
+  [param]
+  (->> (query/get-all)
+       (xform/aggregate :class)))
 
